@@ -5,6 +5,7 @@ import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import Checkbox from "./Checkbox";
 import Select from "./Select";
+import { Link } from 'react-router-dom'
 
 export default function Register() {
     const data = ['male', 'female', 'others'];
@@ -24,9 +25,6 @@ export default function Register() {
 
     const { register, handleSubmit, formState: { errors } } =
         useForm({ resolver: yupResolver(schema) });
-
-    console.log(errors)
-
     const onSubmit = (data: any) => console.log(data);
     return (
         <section>
@@ -85,7 +83,7 @@ export default function Register() {
                         <div className="pr-4 mt-5 flex flex-col gap-3">
                             <button type="submit" className="bg-blue-500 pr-4 w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ">Create Account</button>
                             <div className="m-auto text-sm font-medium text-slate-600">
-                                <h1>Already have an account? <button className="text-blue-500 ">Log in</button></h1>
+                                <h1>Already have an account? <Link to="/login" className="text-blue-500 ">Log in</Link></h1>
                             </div>
                         </div>
                     </form>
