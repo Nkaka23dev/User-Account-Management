@@ -27,7 +27,7 @@ export default function Login() {
                         <p className="text-center font-medium text-[13px] leading-7 text-white/70"> adipisicing elit. Doloremque, autem exercitationem quis impedit, eum nulla quas eveniet similique id.</p>
                     </div>
                 </div>
-                <div className='col-span-3 max-w-xl   w-full   m-auto py-10 px-4'>
+                <div className='col-span-3 max-w-md   w-full   m-auto py-10 px-4'>
                     <div className=''>
 
                         <div>
@@ -41,8 +41,8 @@ export default function Login() {
                         <div className="">
                             <Input error={errors['password']} type="password" {...register("password")} placeholder="Enter password" label="password" />
                         </div>
-                        <div className="pr-4 mt-5 flex flex-col gap-3">
-                            <button type="submit" className="bg-blue-500 pr-4 w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ">Sign In</button>
+                        <div className="pr-0 mt-5 flex flex-col gap-3">
+                            <button type="submit" className="bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ">Sign In</button>
                             <div className="relative flex py-5 items-center">
                                 <div className="flex-grow border-t border-gray-300" />
                                 <span className="flex-shrink mx-4 text-sm font-medium text-gray-400">OR</span>
@@ -56,10 +56,10 @@ export default function Login() {
                                     </span>
                                 </a>
                             </div>
-                            <div className="m-auto text-sm font-medium text-slate-600">
-                                <h1>Don't have account? <Link to="/" className="text-blue-500 ">Register</Link></h1>
+                            <div className="m-auto flex gap-10 py-5 text-sm font-medium text-slate-600">
+                                <h1>Don't have an account? <Link to="/" className="text-blue-500 ">Register</Link></h1>
+                                <Link to="/" className="text-blue-500 text-sm">Forgot Password?</Link>
                             </div>
-
                         </div>
                     </form>
                 </div>

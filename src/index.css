@@ -2,3 +2,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.bg {
+    background-image: url('https://cdn.pixabay.com/photo/2013/09/19/16/48/sky-blue-183874_640.jpg');
+    background-color: #cccccc;
+    /* You must set a specified height */
+    background-position: center;
+    /* Center the image */
+    background-repeat: no-repeat;
+    /* Do not repeat the image */
+    background-size: cover;
+    /* Resize the background image to cover the entire container */
+}
