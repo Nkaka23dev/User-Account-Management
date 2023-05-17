@@ -2,7 +2,7 @@ import { useState } from "react";
 import UserProfileForm from "./UserProfileForm";
 import UserInfo from "./UserInfoAndImage";
 import VerifyAccount from "./VerifyAccount";
-import { Link } from 'react-router-dom'
+import ResetPassword from "./ResetPassword";
 
 export default function UserProfile() {
     const [openTab, setOpenTab] = useState(0);
@@ -20,7 +20,7 @@ export default function UserProfile() {
                             <div className="flex flex-col py-5 max-w-5xl ">
                                 <ul className="flex border-b border-slate-400 px-5 gap-5 cursor-pointer items-center ">
                                     {
-                                        ["Account settings", "verify Account", "Notifications"].map((e, i) => {
+                                        ["Account information", "verify Account", "reset password"].map((e, i) => {
                                             return (
                                                 <li>
                                                     <a
@@ -43,7 +43,7 @@ export default function UserProfile() {
                                         <VerifyAccount />
                                     </div>
                                     <div className={openTab === 2 ? "block" : "hidden"}>
-                                        <Link to="register">Register</Link>
+                                        <ResetPassword />
                                     </div>
                                 </div>
                             </div>

@@ -33,9 +33,9 @@ export default function UserProfileForm() {
                 <Input error={errors['password']} type="password" {...register("password")} placeholder="Enter password" label="password" />
                 <Input error={errors['confirm_password']} type="password" {...register("confirm_password")} placeholder="Corfirm password" label="corfirm password" />
             </div>
-            <div className="pr-4 mt-5 flex flex-col gap-3 ">
+            {/* <div className="pr-4 mt-5 flex flex-col gap-3 ">
                 <button type="submit" className="bg-blue-500 pr-4 w-1/4 text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ">Update</button>
-            </div>
+            </div> */}
         </form>
     )
 }

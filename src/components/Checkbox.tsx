@@ -1,5 +1,3 @@
-import React from 'react'
-
 export default function Checkbox({ label }: any) {
     return (
         <div className="relative flex items-start">

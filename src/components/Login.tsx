@@ -56,10 +56,11 @@ export default function Login() {
                                     </span>
                                 </a>
                             </div>
-                            <div className="m-auto flex gap-10 py-5 text-sm font-medium text-slate-600">
-                                <h1>Don't have an account? <Link to="/" className="text-blue-500 ">Register</Link></h1>
-                                <Link to="/" className="text-blue-500 text-sm">Forgot Password?</Link>
+                            <div className="m-auto text-sm font-medium text-slate-600 flex gap-10 py-5">
+                                <h1>Don't have account? <Link to="/" className="text-blue-500 ">Register</Link></h1>
+                                <Link to="/password" className="text-blue-500 ">Forgot password?</Link>
                             </div>
+
                         </div>
                     </form>
                 </div>
