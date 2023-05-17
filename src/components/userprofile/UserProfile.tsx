@@ -3,9 +3,12 @@ import UserProfileForm from "./UserProfileForm";
 import UserInfo from "./UserInfoAndImage";
 import VerifyAccount from "./VerifyAccount";
 import ResetPassword from "./ResetPassword";
+import { useAuth } from "../../context/authContext";
 
 export default function UserProfile() {
     const [openTab, setOpenTab] = useState(0);
+
+
     return (
         <section>
             <div className='py-32 w-full bg-blue-500 bg' >

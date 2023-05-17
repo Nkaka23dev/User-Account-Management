@@ -7,7 +7,6 @@ interface InputProps {
     error?: any
 }
 function Input({ label, placeholder, type, error, ...other }: InputProps, ref: any) {
-    console.log({ error })
     return (
         <div className="w-full mb-3">
             <label className="text-sm mb-[6px] capitalize block text-gray-600 font-medium " htmlFor="photo">{label} <span className='text-red-500'>*</span> </label>

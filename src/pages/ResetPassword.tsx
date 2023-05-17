@@ -4,12 +4,11 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { Link } from 'react-router-dom'
 import Input from "../components/Input";
 
-export default function ResetPassword() {
+export default function ForgotPassword() {
     const schema = yup.object({
-        confirm_password: yup.string().required('Password is required').min(6),
         password: yup.string().required('Password is required').min(6),
+        confirm_password: yup.string().required('Password is required').min(6),
     });
-
     const { register, handleSubmit, formState: { errors } } =
         useForm({ resolver: yupResolver(schema) });
 
@@ -26,9 +25,8 @@ export default function ResetPassword() {
                 </div>
                 <div className='col-span-3 max-w-md   w-full   m-auto py-10 px-4'>
                     <div className=''>
-
                         <div>
-                            <h1 className="text-base mb-2 font-medium text-gray-800 text-center">Enter Your Email</h1>
+                            <h1 className="text-base mb-2 font-medium text-gray-800 text-center">Reset password</h1>
                             <p className="pt-1 text-sm leading-7 font-medium text-gray-500 max-w-xl text-md">
                                 Lorem ipsum dolor sit amet consectetur, adipisicing elit.
                             </p>
@@ -36,16 +34,17 @@ export default function ResetPassword() {
                     </div>
                     <form onSubmit={handleSubmit(onSubmit)} className="mt-5">
                         <div className=" w-full ">
-                            <Input error={errors['email']} {...register("email")} placeholder="Enter email." label="Email" />
+                            <Input error={errors['password']} {...register("password")} placeholder="Enter email." label="password" />
+                        </div>
+                        <div className=" w-full ">
+                            <Input error={errors['confirm_password']} {...register("confirm_password")} placeholder="Confirm password." label="Confirm password" />
                         </div>
 
                         <div className="pr-0 mt-5 flex flex-col gap-3">
-                            <button type="submit" className="bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ">Request Reset Token</button>
-
+                            <button type="submit" className="bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ">Reset Password</button>
                             <div className="m-auto text-sm font-medium text-slate-600">
                                 <h1>Back to <Link to="/login" className="text-blue-500 ">Login</Link></h1>
                             </div>
-
                         </div>
                     </form>
                 </div>
