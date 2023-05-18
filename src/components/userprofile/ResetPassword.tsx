@@ -1,8 +1,7 @@
 import { useForm } from "react-hook-form";
 import Input from "../Input";
 import * as yup from "yup";
-import { yupResolver } from '@hookform/resolvers/yup';
-import { Link, useNavigate } from 'react-router-dom'
+import { yupResolver } from '@hookform/resolvers/yup'; 
 import { authService } from "../../services/auth.service";
 import { toast } from "react-hot-toast";
 

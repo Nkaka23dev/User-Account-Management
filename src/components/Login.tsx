@@ -7,7 +7,6 @@ import Checkbox from "./Checkbox";
 import toast from 'react-hot-toast';
 import { useState } from "react";
 import { authService } from "../services/auth.service";
-import { useAuth } from "../context/authContext";
 
 
 
@@ -24,22 +23,8 @@ export default function Login() {
 
     const navigate = useNavigate()
 
-    // const redirect = qs.parse(location.search.replaceAll("?", ''))?.redirect
 
-    const { user, loading: userLoading, setCurrentUser } = useAuth()
 
-    const handleGoogleLogin = async ({ token }) => {
-        return authService.googleSignin({ token: token }).then(({ data }) => {
-            setCurrentUser(data)
-            setloading(false)
-            localStorage.setItem('token', data.access_token)
-            navigate('/account')
-        }).catch((error) => {
-            setformError(error?.response?.data?.message)
-            setloading(false)
-            toast("Login failed")
-        })
-    }
     const [formError, setformError] = useState('')
 
     const onSubmit = (data: any) => {

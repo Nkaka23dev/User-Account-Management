@@ -2,8 +2,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from "../Input";
-import { useAuth } from "../../context/authContext"
-import { Userdata } from "../Register";
+import { useAuth } from "../../context/authContext" 
 
 export default function UserProfileForm() {
     const { user }: any = useAuth();

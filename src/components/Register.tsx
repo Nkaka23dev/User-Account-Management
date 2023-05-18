@@ -8,8 +8,6 @@ import { Link, useNavigate } from 'react-router-dom'
 import { authService } from "../services/auth.service";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import { useAuth } from "../context/authContext";
-import { GoogleLogin } from "@react-oauth/google";
 
 export interface Userdata {
     names: string;
@@ -23,12 +21,13 @@ export interface Userdata {
 }
 
 export default function Register() {
-    const [loading, setloading] = useState(false);
+    const [, setloading] = useState(false);
     const navigate = useNavigate();
     const data = ['male', 'female', 'others'];
     const martal_status = ["Single", "Married", 'Divorced', 'widowed']
 
-    const [loginLoading, setloginLoading] = useState(false)
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [loginLoading] = useState(false)
 
     const schema = yup.object({
         names: yup.string().required().label('full names'),

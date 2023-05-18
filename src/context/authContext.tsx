@@ -8,13 +8,7 @@ import { AuthServices, authService } from "../services/auth.service";
 import qs from 'qs'
 import { toast } from "react-hot-toast";
 
-interface User {
-    username: string;
-    email: string;
-    photo: string;
-    id: string;
-    roles: any;
-}
+
 
 interface ContextProps {
     loading?: boolean;
@@ -68,7 +62,7 @@ function useProvideAuth() {
                 localStorage.setItem("refresh_token", data.refresh_token);
                 setCurrentUser(data);
             })
-            .catch((e) => {
+            .catch(() => {
                 setLoading(false);
                 setUser(undefined);
             });
@@ -93,7 +87,7 @@ function useProvideAuth() {
                     setLoading(false)
                 }, 1500);
             })
-            .catch((e) => {
+            .catch(() => {
                 setLoading(false);
                 setUser(undefined);
             });
