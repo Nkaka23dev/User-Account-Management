@@ -1,24 +1,15 @@
 import { useForm } from "react-hook-form";
 import Input from "./Input";
-import Google from "./Google";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Checkbox from "./Checkbox";
 import toast from 'react-hot-toast';
 import { useState } from "react";
 import { authService } from "../services/auth.service";
-import { RecaptchaVerifier } from "firebase/auth";
-import { auth } from "../config/firebase";
-import { GoogleLogin } from "@react-oauth/google";
 import { useAuth } from "../context/authContext";
 
-const recaptchaVerifier = new RecaptchaVerifier("2fa-captcha", {
-    "size": "invisible",
-    "callback": function (response) {
-        console.log('captcha solved!', response)
-    }
-}, auth);
+
 
 export default function Login() {
 

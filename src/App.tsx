@@ -15,7 +15,6 @@ import ResetPassword from "./pages/ResetPassword";
 import { AuthProvider } from "./context/authContext";
 import { Toaster } from "react-hot-toast";
 import TwoFactorAuth from "./pages/2FA";
-import { GoogleOAuthProvider } from '@react-oauth/google';
 import AuthLayout from "./pages/AuthLayout";
 
 const router = createBrowserRouter(
@@ -39,12 +38,10 @@ export default function App() {
 
 
   return (
-    <GoogleOAuthProvider clientId={import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID}>
-      <AuthProvider>
-        <Toaster />
-        <RouterProvider router={router} />
-      </AuthProvider>
-    </GoogleOAuthProvider>
+    <AuthProvider>
+      <Toaster />
+      <RouterProvider router={router} />
+    </AuthProvider>
 
   )
 }

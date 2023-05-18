@@ -65,7 +65,7 @@ export default function Register() {
         const formData = new FormData();
         formData.append('image', file);
 
-        return fetch('http://localhost:4000/upload', {
+        return fetch(import.meta.env.VITE_API_URL + '/upload', {
             method: 'POST',
             body: formData
         })
