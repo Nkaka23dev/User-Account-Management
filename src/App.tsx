@@ -16,11 +16,12 @@ import { AuthProvider } from "./context/authContext";
 import { Toaster } from "react-hot-toast";
 import TwoFactorAuth from "./pages/2FA";
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import AuthLayout from "./pages/AuthLayout";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
-      <Route path="/">
+      <Route element={<AuthLayout />} path="/">
         <Route index element={<Navigate to={'/account'} />} />
         <Route path="register" element={<Register />} />
         <Route path="reset-password" element={<ResetPassword />} />

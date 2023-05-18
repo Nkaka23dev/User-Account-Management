@@ -13,8 +13,6 @@ export default function TwoFactorAuth() {
 
     const [loading, setloading] = useState(false)
 
-
-
     const { setCurrentUser } = useAuth()
 
     const navigate = useNavigate()
@@ -87,8 +85,6 @@ export default function TwoFactorAuth() {
                             <button onClick={submitForm} id="login-btn" type="submit" className={`bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ${loading ? 'pointer-events-none opacity-70' : ''}`}>
                                 {loading ? 'loading..' : 'Verify 2fA Code'}
                             </button>
-
-
                             <div className="m-auto text-sm font-medium text-slate-600">
                                 <h1>Back to <Link to="/login" className="text-blue-500 ">Login</Link></h1>
                             </div>

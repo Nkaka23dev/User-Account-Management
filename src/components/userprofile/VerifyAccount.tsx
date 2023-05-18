@@ -47,7 +47,6 @@ export default function VerifyAccount() {
                 console.log(err)
             })
     }
-
     const { user }: any = useAuth()
 
     return (
@@ -68,7 +67,10 @@ export default function VerifyAccount() {
                     <button type="submit" className="bg-blue-500 pr-4 w-1/4 text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ">Verify</button>
                 </div>
             </form> : <div>
-                {user?.verification_status === 'pending' ? 'Verification is pending' : user?.verification_status === 'verified' ? 'Your account us verirified' : 'something went wrong'}
+                {user?.verification_status === 'pending' ? 'Verification is pending' : user?.verification_status === 'verified' ? <div className="flex items-center" >
+                    <p>Your account is verirified</p>
+                    <img className="" src="/vectors/badge.svg" />
+                </div> : 'something went wrong'}
             </div>}
 
         </div>

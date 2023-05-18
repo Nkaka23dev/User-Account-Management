@@ -10,7 +10,9 @@ export default function PageLayout() {
     <Fragment>
       {!loading ? <Protected isSignedIn={user}>
         <Outlet />
-      </Protected> : 'loading..'}
+      </Protected> : <div className='flex items-center justify-center h-screen w-screen'>
+        <img height={100} width={100} src="/spinner.gif" alt="" />
+      </div>}
     </Fragment>
   )
 }

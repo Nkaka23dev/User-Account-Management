@@ -11,7 +11,7 @@ import { toast } from "react-hot-toast";
 import { useAuth } from "../context/authContext";
 import { GoogleLogin } from "@react-oauth/google";
 
-interface Userdata {
+export interface Userdata {
     names: string;
     email: string;
     gender: string;

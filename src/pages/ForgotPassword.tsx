@@ -23,7 +23,6 @@ export default function ResetPassword() {
             toast(err.response.data.message)
         })
     }
-
     return (
         <section>
             <div className='grid grid-cols-5 h-screen'>

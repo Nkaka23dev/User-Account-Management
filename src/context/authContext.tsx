@@ -7,6 +7,7 @@ import {
 import { AuthServices, authService } from "../services/auth.service";
 import qs from 'qs'
 import { toast } from "react-hot-toast";
+
 interface User {
     username: string;
     email: string;
@@ -87,8 +88,10 @@ function useProvideAuth() {
         await new AuthServices()
             .getCurrentUser({})
             .then(({ data }) => {
-                setCurrentUser(data);
-                setLoading(false)
+                setTimeout(() => {
+                    setCurrentUser(data);
+                    setLoading(false)
+                }, 1500);
             })
             .catch((e) => {
                 setLoading(false);
