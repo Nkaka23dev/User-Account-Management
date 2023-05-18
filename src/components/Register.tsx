@@ -34,7 +34,7 @@ export default function Register() {
         email: yup.string().email().required(),
         birth: yup.string().required(),
         nationality: yup.string().required(),
-        photo: yup.string().required(),
+        photo: yup.string(),
         gender: yup.string().required(),
         martal_status: yup.string().required().label("martal status"),
         password: yup.string().required('Password is required').min(6),
