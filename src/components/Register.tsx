@@ -1,6 +1,5 @@
 import { useForm } from "react-hook-form";
 import Input from "./Input";
-import Google from "./Google";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import Checkbox from "./Checkbox";
@@ -8,8 +7,9 @@ import Select from "./Select";
 import { Link, useNavigate } from 'react-router-dom'
 import { authService } from "../services/auth.service";
 import { useState } from "react";
-import { doc, setDoc } from "firebase/firestore";
-import { db } from "../config/firebase";
+import { toast } from "react-hot-toast";
+import { useAuth } from "../context/authContext";
+import { GoogleLogin } from "@react-oauth/google";
 
 interface Userdata {
     names: string;
@@ -28,15 +28,14 @@ export default function Register() {
     const data = ['male', 'female', 'others'];
     const martal_status = ["Single", "Married", 'Divorced', 'widowed']
 
-    const [formError, setformError] = useState('')
-
     const [loginLoading, setloginLoading] = useState(false)
 
     const schema = yup.object({
         names: yup.string().required().label('full names'),
-        email: yup.string().required(),
+        email: yup.string().email().required(),
         birth: yup.string().required(),
         nationality: yup.string().required(),
+        photo: yup.string().required(),
         gender: yup.string().required(),
         martal_status: yup.string().required().label("martal status"),
         password: yup.string().required('Password is required').min(6),
@@ -44,49 +43,41 @@ export default function Register() {
             .oneOf([yup.ref('password')], 'Passwords must match')
     });
 
-    const { register, handleSubmit, formState: { errors } } =
+    const { register, handleSubmit, setValue, formState: { errors } } =
         useForm({ resolver: yupResolver(schema) });
 
-    const onSubmit = async (data: Userdata) => {
-        try {
-            setformError('')
-            setloginLoading(true)
-            const result: any = await authService.createAccount({
-                email: data.email,
-                password: data.password,
-                userName: data.names,
+    const [formError, setformError] = useState('')
+
+    const onSubmit = (data: any) => {
+        authService
+            .signUp(data)
+            .then(() => {
+                navigate("/2fa");
             })
-            console.log(result)
-            await setDoc(doc(db, "user", result.uid), {
-                names: data.names,
-                email: data.email,
-                gender: data.gender,
-                martal_status: data.martal_status,
-                birth: data.birth,
-                nationality: data.nationality
+            .catch((error) => {
+                setformError(error?.response?.data?.message)
+                setloading(false)
+                toast("Login failed")
             });
-            navigate('/account')
+    };
 
+    const handleUpload = (file) => {
+        const formData = new FormData();
+        formData.append('image', file);
 
-            setformError('')
-        } catch (error) {
-            setformError(error.message)
-        } finally {
-            setloginLoading(false)
-        }
-        console.log(data)
-    }
-    const handleGoogleLogin = async () => {
-        try {
-            setloading(true)
-            await authService.signInWithGoogle();
-            navigate('/account')
+        return fetch('http://localhost:4000/upload', {
+            method: 'POST',
+            body: formData
+        })
+            .then(response => response.json())
+            .then(data => {
+                setValue('photo', data.url)
+                console.log('Image URL:', data.url);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
 
-        } catch (error) {
-            return ''
-        } finally {
-            setloading(false)
-        }
     }
     return (
         <section>
@@ -99,7 +90,7 @@ export default function Register() {
                     </div>
                 </div>
                 <div className='col-span-3 lg:max-w-5xl max-w-xl lg:mx-5 m-auto py-10 px-4 sm:px-0 '>
-                    <div className=''>
+                    <div className='mb-6'>
 
                         <div>
                             <h1 className="text-lg mb-1 font-medium text-gray-800 ">Create your account</h1>
@@ -109,24 +100,34 @@ export default function Register() {
                     </div>
                     <form onSubmit={handleSubmit(onSubmit)} className="">
                         <div className="mt-3b">
-                            <a className={`flex hover:bg-gray-100  items-center gap-3 px-3 py-[10px] text-sm text-slate-500 rounded-[3px] border border-slate-300 justify-center cursor-pointer font-medium text-center ${loading ? 'pointer-events-none opacity-70' : ''}`} onClick={handleGoogleLogin}>
+                            {/* <a className={`flex hover:bg-gray-100  items-center gap-3 px-3 py-[10px] text-sm text-slate-500 rounded-[3px] border border-slate-300 justify-center cursor-pointer font-medium text-center ${loading ? 'pointer-events-none opacity-70' : ''}`} onClick={handleGoogleLogin}>
                                 <Google />
                                 <span>
                                     Continue with google
                                 </span>
-                            </a>
+                            </a> */}
+                            {/* <GoogleLogin
+                                size="large"
+                                onSuccess={credentialResponse => {
+                                    handleGoogleLogin({ token: credentialResponse.credential })
+                                }}
+                                onError={() => {
+                                    console.log('Login Failed');
+                                }}
+                            /> */}
                         </div>
 
-                        <div className="relative flex py-5 items-center">
+                        {/* <div className="relative flex py-5 items-center">
                             <div className="flex-grow border-t border-gray-300" />
                             <span className="flex-shrink mx-4 text-sm font-medium text-gray-400">OR</span>
                             <div className="flex-grow border-t border-gray-300" />
-                        </div>
+                        </div> */}
                         {
                             formError && <div className="text-red-500 bg-red-100 px-3 py-2 rounded-[3px] text-[13px] border border-red-300 mb-3 ">
                                 {formError}
                             </div>
                         }
+
                         <div className="grid sm:grid-cols-1 grid-cols-2 gap-4  ">
                             <Input error={errors['names']}  {...register("names")} placeholder="Enter full Name.." label="Full name" />
                             <Input error={errors['email']} {...register("email")} placeholder="Enter email." label="Email" />
@@ -139,9 +140,18 @@ export default function Register() {
                             <Input error={errors['birth']}  {...register("birth")} type="date" placeholder="Date of Birth" label="Date of Birth" />
                             <Input error={errors['nationality']} {...register("nationality")} placeholder="Nationality" label="Nationality" />
                         </div>
+
                         <div className="grid sm:grid-cols-1 grid-cols-2 gap-4  ">
                             <Input error={errors['password']} type="password" {...register("password")} placeholder="Enter password" label="password" />
                             <Input error={errors['confirm_password']} type="password" {...register("confirm_password")} placeholder="Corfirm password" label="corfirm password" />
+                        </div>
+                        <div className="mb-4 ">
+                            <label className="text-sm mb-[6px] capitalize block text-gray-600 font-medium " htmlFor="photo">Upload your profile picture <span className='text-red-500'>*</span> </label>
+                            <div className={`border rounded-[3px] px-3 py-3 ${errors['photo']?.message ? 'border-red-400 ' : 'border-slate-200 '}`}>
+                                <input onChange={(e) => handleUpload(e.target.files[0])} type="file" className="font-medium text-sm text-slate-600" />
+                            </div>
+                            {errors['photo'] && <span className='text-red-500 text-[12px] capitalize font-medium'>*{errors['photo'].message as string}</span>}
+
                         </div>
                         <div>
                             <Checkbox label="I agree terms & conditions" />

@@ -3,17 +3,27 @@ import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link } from 'react-router-dom'
 import Input from "../components/Input";
+import { authService } from "../services/auth.service";
+import { toast } from "react-hot-toast";
 
 export default function ResetPassword() {
     const schema = yup.object({
-        confirm_password: yup.string().required('Password is required').min(6),
-        password: yup.string().required('Password is required').min(6),
+        email: yup.string().email().required('Email is required')
     });
 
     const { register, handleSubmit, formState: { errors } } =
         useForm({ resolver: yupResolver(schema) });
 
-    const onSubmit = (data: any) => console.log(data);
+    const onSubmit = (data: any) => {
+        return authService.forgotPassword({ email: data.email }).then(({ data }) => {
+            toast("Check your inbox")
+            console.log(data)
+        }).catch(err => {
+            console.log(err)
+            toast(err.response.data.message)
+        })
+    }
+
     return (
         <section>
             <div className='grid grid-cols-5 h-screen'>

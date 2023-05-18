@@ -21,7 +21,7 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route path="/">
-        <Route index element={<Navigate to={'/register'} />} />
+        <Route index element={<Navigate to={'/account'} />} />
         <Route path="register" element={<Register />} />
         <Route path="reset-password" element={<ResetPassword />} />
         <Route path="login" element={<Login />} />

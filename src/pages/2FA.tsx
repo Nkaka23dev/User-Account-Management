@@ -1,12 +1,41 @@
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import ReactCodeInput from "react-verification-code-input";
 import { useState } from "react";
+import { authService } from '../services/auth.service';
+import { useAuth } from '../context/authContext';
+import { toast } from 'react-hot-toast';
 
 export default function TwoFactorAuth() {
     const [code, setcode] = useState('')
 
-    const submitForm = () => console.log(code);
+    const [formError, setformError] = useState('')
+
+    const [loading, setloading] = useState(false)
+
+
+
+    const { setCurrentUser } = useAuth()
+
+    const navigate = useNavigate()
+
+    const submitForm = () => {
+        setloading(false)
+        if (code && code.length === 6) {
+            return authService.verify2faToken({ code: code }).then(({ data }) => {
+                setCurrentUser(data)
+                setloading(false)
+                localStorage.setItem('token', data.access_token)
+                localStorage.setItem('refresh_token', data.refresh_token)
+                navigate('/account')
+            }).catch((e) => {
+                setloading(false)
+                setformError(e.response.data.message)
+                console.log(e.response.data.message)
+                toast(e.response.data.message)
+            })
+        }
+    };
     return (
         <section>
             <div className='grid grid-cols-5 h-screen'>
@@ -23,11 +52,16 @@ export default function TwoFactorAuth() {
                         <div>
                             <h1 className="text-base mb-2 font-medium text-gray-800 text-center">2FA Authentication</h1>
                             <p className="pt-1 text-sm leading-7 font-medium text-gray-500 max-w-xl text-md">
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                                A confirmation link has been sent to your inbox. check your inbox to login.
                             </p>
                         </div>
                     </div>
-                    <form className="mt-5">
+                    <div className="mt-5">
+                        {
+                            formError && <div className="text-red-500 bg-red-100 px-3 py-2 rounded-[3px] text-[13px] border border-red-300 mb-3 ">
+                                {formError}
+                            </div>
+                        }
                         <div className=" w-full ">
                             <div className="form-group mb-2 ">
                                 <div className="label text-sm font-medium text-slate-800 capitalize mb-2">Enter code</div>
@@ -49,14 +83,18 @@ export default function TwoFactorAuth() {
                         </div>
 
                         <div className="pr-0 mt-5 flex flex-col gap-3">
-                            <button type="submit" className="bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ">Verify 2fA Code</button>
+
+                            <button onClick={submitForm} id="login-btn" type="submit" className={`bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ${loading ? 'pointer-events-none opacity-70' : ''}`}>
+                                {loading ? 'loading..' : 'Verify 2fA Code'}
+                            </button>
+
 
                             <div className="m-auto text-sm font-medium text-slate-600">
                                 <h1>Back to <Link to="/login" className="text-blue-500 ">Login</Link></h1>
                             </div>
 
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </section>

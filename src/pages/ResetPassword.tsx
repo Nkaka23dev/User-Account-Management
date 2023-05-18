@@ -1,10 +1,15 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import Input from "../components/Input";
+import qs from 'qs'
+import { authService } from "../services/auth.service";
+import { toast } from "react-hot-toast";
 
 export default function ForgotPassword() {
+    const navigate = useNavigate();
+
     const schema = yup.object({
         password: yup.string().required('Password is required').min(6),
         confirm_password: yup.string().required('Password is required').min(6),
@@ -12,7 +17,21 @@ export default function ForgotPassword() {
     const { register, handleSubmit, formState: { errors } } =
         useForm({ resolver: yupResolver(schema) });
 
-    const onSubmit = (data: any) => console.log(data);
+    const token = qs.parse(location.search.replaceAll("?", ''))?.code
+
+
+    const onSubmit = (data: any) => {
+        return authService.resetPassword({ password: data.password, token })
+            .then(() => {
+                toast("Password changed, login");
+                navigate('/login')
+                console.log(data)
+            })
+            .catch(err => {
+                console.log(err)
+                toast(err.response.data.message)
+            })
+    };
     return (
         <section>
             <div className='grid grid-cols-5 h-screen'>
