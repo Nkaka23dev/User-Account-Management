@@ -1,7 +1,5 @@
 import { Navigate, useLocation } from 'react-router-dom'
 import { publicURLs } from '../data/publicRoutes'
-import toast from 'react-hot-toast';
-import { useEffect } from 'react';
 
 function Protected({ isSignedIn, children }) {
     const location = useLocation()

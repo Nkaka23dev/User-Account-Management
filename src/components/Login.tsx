@@ -9,7 +9,16 @@ import toast from 'react-hot-toast';
 import { useEffect, useState } from "react";
 import { authService } from "../services/auth.service";
 import qs from 'qs'
+import { PhoneAuthProvider, PhoneMultiFactorGenerator, RecaptchaVerifier, multiFactor } from "firebase/auth";
+import { auth } from "../config/firebase";
+import { GoogleLogin } from "@react-oauth/google";
 
+const recaptchaVerifier = new RecaptchaVerifier("2fa-captcha", {
+    "size": "invisible",
+    "callback": function (response) {
+        console.log('captcha solved!', response)
+    }
+}, auth);
 
 export default function Login() {
 
@@ -28,24 +37,41 @@ export default function Login() {
 
 
     const handleGoogleLogin = async () => {
-        try {
-            setloading(true)
-            await authService.signInWithGoogle();
-            if (redirect) {
-                navigate(redirect)
-            } else {
-                navigate('/account')
-            }
+        // getGoogleUrl(from)
+        // try {
+        //     setloading(true)
+        //     await authService.signInWithGoogle();
+        //     if (redirect) {
+        //         navigate(redirect)
+        //     } else {
+        //         navigate('/account')
+        //     }
 
-        } catch (error) {
-            return ''
-        } finally {
-            setloading(false)
-        }
+        // } catch (error) {
+        //     return ''
+        // } finally {
+        //     setloading(false)
+        // }
     }
 
 
-    const onSubmit = (data: any) => console.log(data);
+    const onSubmit = (data: any) => {
+        // recaptchaVerifier.verify().then(() => {
+        //     multiFactor(user).getSession()
+        //         .then(function (multiFactorSession) {
+        //             // Specify the phone number and pass the MFA session.
+        //             const phoneInfoOptions = {
+        //                 phoneNumber: 'phoneNumber',
+        //                 session: multiFactorSession
+        //             };
+
+        //             const phoneAuthProvider = new PhoneAuthProvider(auth);
+        //             return phoneAuthProvider.verifyPhoneNumber(phoneInfoOptions, recaptchaVerifier).then((e) => {
+        //                 console.log("hello")
+        //             })
+        //         })
+        // })
+    };
     return (
         <section>
             <div className='grid lg:grid-cols-1 grid-cols-5 h-screen'>
@@ -68,13 +94,23 @@ export default function Login() {
                             </p>
                         </div>
                     </div>
+
                     <div className="mt-6">
-                        <a className={`flex hover:bg-gray-100  items-center gap-3 px-3 py-[10px] text-sm text-slate-500 rounded-[3px] border border-slate-300 justify-center cursor-pointer font-medium text-center ${loading ? 'pointer-events-none opacity-70' : ''}`} onClick={handleGoogleLogin}>
+                        {/* <a className={`flex hover:bg-gray-100  items-center gap-3 px-3 py-[10px] text-sm text-slate-500 rounded-[3px] border border-slate-300 justify-center cursor-pointer font-medium text-center ${loading ? 'pointer-events-none opacity-70' : ''}`} onClick={handleGoogleLogin}>
                             <Google />
                             <span>
                                 Continue with google
                             </span>
-                        </a>
+                        </a> */}
+                        <GoogleLogin
+                            size="large"
+                            onSuccess={credentialResponse => {
+                                console.log(credentialResponse);
+                            }}
+                            onError={() => {
+                                console.log('Login Failed');
+                            }}
+                        />
                     </div>
                     <div className="relative flex py-5 items-center">
                         <div className="flex-grow border-t border-gray-300" />
@@ -93,7 +129,7 @@ export default function Login() {
                                 <Checkbox label="I agree terms & conditions" />
                                 <Link to="/forgot-password" className="text-blue-500 font-medium text-sm mb-4 ">Forgot password?</Link>
                             </div>
-                            <button type="submit" className="bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ">Sign In</button>
+                            <button id="login-btn" type="submit" className="bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ">Sign In</button>
 
 
                             <div className="m-auto text-sm font-medium text-slate-600 lg:flex-col flex gap-10 py-5">
@@ -105,6 +141,7 @@ export default function Login() {
                     </form>
                 </div>
             </div>
+
         </section>
     )
 }

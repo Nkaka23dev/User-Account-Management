@@ -15,3 +15,15 @@
     background-size: cover;
     /* Resize the background image to cover the entire container */
 }
+
+.styles_react-code-input__CRulA>input {
+    @apply !font-sans !font-medium !text-[15px] !w-full
+}
+
+.styles_react-code-input__CRulA {
+    @apply flex
+}
+
+.styles_react-code-input-container__tpiKG {
+    @apply !w-full
+}
