@@ -41,7 +41,13 @@ https://github.com/Nkaka23dev/User-Account-Management.git
 
 ```bash
 npm install
-```
+``` 
+
+2. Create  and configure your  ```.env``` file
+ globally and add ```api``` link
+```bash
+VITE_API_URL=https://user-management-api-production.up.railway.app
+``` 
 
 3. Run local server
 
