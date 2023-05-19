@@ -14,6 +14,7 @@ The system will focuses on ease of use, scalability, data security, and user ver
 ## Technologies Used
 
 - React
+- Typescript
 - TailwindCSS
 - React-Router-DOM
 - React-Hook-Form
