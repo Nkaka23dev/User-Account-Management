@@ -8,6 +8,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { authService } from "../services/auth.service";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
+import Loading from "./Loading";
 
 export interface Userdata {
     names: string;
@@ -21,13 +22,11 @@ export interface Userdata {
 }
 
 export default function Register() {
-    const [, setloading] = useState(false);
+    const [loading, setloading] = useState(false);
+    const [registerLoading, setregisterLoading] = useState(false);
     const navigate = useNavigate();
     const data = ['male', 'female', 'others'];
     const martal_status = ["Single", "Married", 'Divorced', 'widowed']
-
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const [loginLoading] = useState(false)
 
     const schema = yup.object({
         names: yup.string().required().label('full names'),
@@ -48,6 +47,7 @@ export default function Register() {
     const [formError, setformError] = useState('')
 
     const onSubmit = (data: any) => {
+        setregisterLoading(true)
         authService
             .signUp(data)
             .then(() => {
@@ -55,7 +55,7 @@ export default function Register() {
             })
             .catch((error) => {
                 setformError(error?.response?.data?.message)
-                setloading(false)
+                setregisterLoading(false)
                 toast("Login failed")
             });
     };
@@ -63,7 +63,7 @@ export default function Register() {
     const handleUpload = (file) => {
         const formData = new FormData();
         formData.append('image', file);
-
+        setloading(true)
         return fetch(import.meta.env.VITE_API_URL + '/upload', {
             method: 'POST',
             body: formData
@@ -72,11 +72,14 @@ export default function Register() {
             .then(data => {
                 setValue('photo', data.url)
                 console.log('Image URL:', data.url);
+                toast.success("Image uploaded successfully, click submit")
+                setloading(false)
             })
             .catch(error => {
                 console.error('Error:', error);
+                toast.error("Try again");
+                setloading(false)
             });
-
     }
     return (
         <section>
@@ -99,28 +102,7 @@ export default function Register() {
                     </div>
                     <form onSubmit={handleSubmit(onSubmit)} className="">
                         <div className="mt-3b">
-                            {/* <a className={`flex hover:bg-gray-100  items-center gap-3 px-3 py-[10px] text-sm text-slate-500 rounded-[3px] border border-slate-300 justify-center cursor-pointer font-medium text-center ${loading ? 'pointer-events-none opacity-70' : ''}`} onClick={handleGoogleLogin}>
-                                <Google />
-                                <span>
-                                    Continue with google
-                                </span>
-                            </a> */}
-                            {/* <GoogleLogin
-                                size="large"
-                                onSuccess={credentialResponse => {
-                                    handleGoogleLogin({ token: credentialResponse.credential })
-                                }}
-                                onError={() => {
-                                    console.log('Login Failed');
-                                }}
-                            /> */}
                         </div>
-
-                        {/* <div className="relative flex py-5 items-center">
-                            <div className="flex-grow border-t border-gray-300" />
-                            <span className="flex-shrink mx-4 text-sm font-medium text-gray-400">OR</span>
-                            <div className="flex-grow border-t border-gray-300" />
-                        </div> */}
                         {
                             formError && <div className="text-red-500 bg-red-100 px-3 py-2 rounded-[3px] text-[13px] border border-red-300 mb-3 ">
                                 {formError}
@@ -147,7 +129,8 @@ export default function Register() {
                         <div className="mb-4 ">
                             <label className="text-sm mb-[6px] capitalize block text-gray-600 font-medium " htmlFor="photo">Upload your profile picture <span className='text-red-500'>*</span> </label>
                             <div className={`border rounded-[3px] px-3 py-3 ${errors['photo']?.message ? 'border-red-400 ' : 'border-slate-200 '}`}>
-                                <input onChange={(e) => handleUpload(e.target.files[0])} type="file" className="font-medium text-sm text-slate-600" />
+                                <input onChange={(e) => handleUpload(e.target.files[0])} type="file" className={` ${loading && 'pointer-events-none opacity-70'} font-medium text-sm text-slate-600`} />
+                                {loading && <Loading invert />}
                             </div>
                             {errors['photo'] && <span className='text-red-500 text-[12px] capitalize font-medium'>*{errors['photo'].message as string}</span>}
 
@@ -157,8 +140,8 @@ export default function Register() {
                         </div>
 
                         <div className="pr-4 mt-5 flex flex-col gap-3">
-                            <button type="submit" className={`bg-blue-500 pr-4 w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600   ${loginLoading ? 'pointer-events-none opacity-70' : ''}`}>
-                                {loginLoading ? 'loading...' : 'Create Account'}
+                            <button type="submit" className={`bg-blue-500 pr-4 w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600   ${registerLoading ? 'pointer-events-none opacity-70' : ''}`}>
+                                {registerLoading ? <Loading /> : 'Create Account'}
                             </button>
                             <div className="m-auto text-sm font-medium text-slate-600">
                                 <h1>Already have an account? <Link to="/login" className="text-blue-500 ">Log in</Link></h1>

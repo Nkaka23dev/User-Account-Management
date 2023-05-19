@@ -6,8 +6,12 @@ import Input from "../components/Input";
 import qs from 'qs'
 import { authService } from "../services/auth.service";
 import { toast } from "react-hot-toast";
+import Loading from "../components/Loading";
+import { useState } from "react";
 
 export default function ForgotPassword() {
+    const [loading, setloading] = useState(false)
+
     const navigate = useNavigate();
 
     const schema = yup.object({
@@ -21,15 +25,16 @@ export default function ForgotPassword() {
 
 
     const onSubmit = (data: any) => {
+        setloading(true)
         return authService.resetPassword({ password: data.password, token })
             .then(() => {
-                toast("Password changed, login");
+                toast.success("Password changed, login");
+                setloading(false)
                 navigate('/login')
-                console.log(data)
             })
             .catch(err => {
-                console.log(err)
-                toast(err.response.data.message)
+                setloading(false)
+                toast.error(err.response.data.message)
             })
     };
     return (
@@ -60,7 +65,9 @@ export default function ForgotPassword() {
                         </div>
 
                         <div className="pr-0 mt-5 flex flex-col gap-3">
-                            <button type="submit" className="bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ">Reset Password</button>
+                            <button type="submit" className={`bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ${loading && 'pointer-events-none opacity-70'} `}>
+                                {loading ? <Loading /> : 'Reset Password'}
+                            </button>
                             <div className="m-auto text-sm font-medium text-slate-600">
                                 <h1>Back to <Link to="/login" className="text-blue-500 ">Login</Link></h1>
                             </div>

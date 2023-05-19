@@ -1,11 +1,15 @@
 import { useForm } from "react-hook-form";
 import Input from "../Input";
 import * as yup from "yup";
-import { yupResolver } from '@hookform/resolvers/yup'; 
+import { yupResolver } from '@hookform/resolvers/yup';
 import { authService } from "../../services/auth.service";
 import { toast } from "react-hot-toast";
+import { useState } from "react";
+import Loading from "../Loading";
 
 export default function ResetPassword() {
+    const [loading, setloading] = useState(false)
+
     const schema = yup.object({
         old_password: yup.string().required('Old password is required').min(6),
         new_password: yup.string().required(' new password is required').min(6),
@@ -18,13 +22,15 @@ export default function ResetPassword() {
 
 
     const onSubmit = (data: any) => {
+        setloading(true)
         return authService.changePassword({ new_password: data.new_password, old_password: data.old_password }).then(() => {
-            toast("Password changed, login");
+            toast.success("Password changed, login");
             reset()
         })
             .catch(err => {
                 console.log(err)
-                toast(err.response.data.message)
+                toast.error(err.response.data.message);
+                setloading(false)
             })
     }
     return (
@@ -39,7 +45,7 @@ export default function ResetPassword() {
                 <Input error={errors['comfirm_password']} type="password" {...register("comfirm_password")} placeholder="Comfirm password" label="Comfirm password" />
             </div>
             <div className="pr-0 mt-5 flex flex-col gap-3">
-                <button type="submit" className="bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ">Reset password</button>
+                <button type="submit" className={`bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ${loading && 'pointer-events-none opacity-70'}`}>{loading ? <Loading /> : 'Reset password'}</button>
             </div>
         </form>
     )

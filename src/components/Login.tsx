@@ -7,6 +7,7 @@ import Checkbox from "./Checkbox";
 import toast from 'react-hot-toast';
 import { useState } from "react";
 import { authService } from "../services/auth.service";
+import Loading from "./Loading";
 
 
 
@@ -28,15 +29,17 @@ export default function Login() {
     const [formError, setformError] = useState('')
 
     const onSubmit = (data: any) => {
+        setloading(true)
         authService
             .signIn({ email: data.email, password: data.password })
             .then(() => {
+                toast("Please check your email for authorization code")
                 navigate("/2fa");
             })
             .catch((error) => {
                 setformError(error?.response?.data?.message)
                 setloading(false)
-                toast("Login failed")
+                toast.error("Login failed")
             });
     };
     return (
@@ -61,29 +64,9 @@ export default function Login() {
                             </p>
                         </div>
                     </div>
-
                     <div className="mt-6">
-                        {/* <a className={`flex hover:bg-gray-100  items-center gap-3 px-3 py-[10px] text-sm text-slate-500 rounded-[3px] border border-slate-300 justify-center cursor-pointer font-medium text-center ${loading ? 'pointer-events-none opacity-70' : ''}`} onClick={handleGoogleLogin}>
-                            <Google />
-                            <span>
-                                Continue with google
-                            </span>
-                        </a> */}
-                        {/* <GoogleLogin
-                            size="large"
-                            onSuccess={credentialResponse => {
-                                handleGoogleLogin({ token: credentialResponse.credential })
-                            }}
-                            onError={() => {
-                                console.log('Login Failed');
-                            }}
-                        /> */}
+
                     </div>
-                    {/* <div className="relative flex py-5 items-center">
-                        <div className="flex-grow border-t border-gray-300" />
-                        <span className="flex-shrink mx-4 text-sm font-medium text-gray-400">OR</span>
-                        <div className="flex-grow border-t border-gray-300" />
-                    </div> */}
                     {
                         formError && <div className="text-red-500 bg-red-100 px-3 py-2 rounded-[3px] text-[13px] border border-red-300 mb-3 ">
                             {formError}
@@ -102,7 +85,7 @@ export default function Login() {
                                 <Link to="/forgot-password" className="text-blue-500 font-medium text-sm mb-4 ">Forgot password?</Link>
                             </div>
                             <button id="login-btn" type="submit" className={`bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ${loading ? 'pointer-events-none opacity-70' : ''}`}>
-                                {loading ? 'loading..' : 'Sign In'}
+                                {loading ? <Loading /> : 'Sign In'}
                             </button>
 
 

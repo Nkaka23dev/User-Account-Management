@@ -5,8 +5,11 @@ import { Link } from 'react-router-dom'
 import Input from "../components/Input";
 import { authService } from "../services/auth.service";
 import { toast } from "react-hot-toast";
+import { useState } from "react";
+import Loading from "../components/Loading";
 
 export default function ResetPassword() {
+    const [loading, setloading] = useState(false)
     const schema = yup.object({
         email: yup.string().email().required('Email is required')
     });
@@ -15,12 +18,15 @@ export default function ResetPassword() {
         useForm({ resolver: yupResolver(schema) });
 
     const onSubmit = (data: any) => {
+        setloading(true)
         return authService.forgotPassword({ email: data.email }).then(({ data }) => {
-            toast("Check your inbox")
+            toast.success("Check your inbox")
+            setloading(false)
             console.log(data)
         }).catch(err => {
             console.log(err)
-            toast(err.response.data.message)
+            setloading(false)
+            toast.error(err.response.data.message)
         })
     }
     return (
@@ -49,7 +55,9 @@ export default function ResetPassword() {
                         </div>
 
                         <div className="pr-0 mt-5 flex flex-col gap-3">
-                            <button type="submit" className="bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ">Request Reset Token</button>
+                            <button type="submit" className={`bg-blue-500 w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ${loading && 'pointer-events-none opacity-70'}`}>
+                                {loading ? <Loading /> : 'Request Reset Token'}
+                            </button>
 
                             <div className="m-auto text-sm font-medium text-slate-600">
                                 <h1>Back to <Link to="/login" className="text-blue-500 ">Login</Link></h1>

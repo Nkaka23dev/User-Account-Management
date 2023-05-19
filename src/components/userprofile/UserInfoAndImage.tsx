@@ -26,7 +26,7 @@ export default function UserInfo() {
           <div className="flex flex-col gap-3 items-center mx-auto mt-4">
             <p className="text-center text-md capitalize font-medium flex items-center">{user?.username}
               <span>
-                {user?.verification_status === 'pending' ? 'Verification is pending' : user?.verification_status === 'verified' ? <img className="" src="/vectors/badge.svg" /> : 'something went wrong'}
+                {user?.verification_status === 'pending' ? 'Verification is pending' : user?.verification_status === 'verified' ? <img className="" src="/vectors/badge.svg" /> : ''}
               </span>
             </p>
             <span className="py-2 text-sm">

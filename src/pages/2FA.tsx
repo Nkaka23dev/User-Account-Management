@@ -5,6 +5,7 @@ import { useState } from "react";
 import { authService } from '../services/auth.service';
 import { useAuth } from '../context/authContext';
 import { toast } from 'react-hot-toast';
+import Loading from '../components/Loading';
 
 export default function TwoFactorAuth() {
     const [code, setcode] = useState('')
@@ -18,8 +19,9 @@ export default function TwoFactorAuth() {
     const navigate = useNavigate()
 
     const submitForm = () => {
-        setloading(false)
+
         if (code && code.length === 6) {
+            setloading(true)
             return authService.verify2faToken({ code: code }).then(({ data }) => {
                 setCurrentUser(data)
                 setloading(false)
@@ -82,8 +84,8 @@ export default function TwoFactorAuth() {
 
                         <div className="pr-0 mt-5 flex flex-col gap-3">
 
-                            <button onClick={submitForm} id="login-btn" type="submit" className={`bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ${loading ? 'pointer-events-none opacity-70' : ''}`}>
-                                {loading ? 'loading..' : 'Verify 2fA Code'}
+                            <button onClick={submitForm} id="login-btn" type="submit" className={`bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ${loading && 'pointer-events-none opacity-70'}`}>
+                                {loading ? <Loading /> : 'Verify 2fA Code'}
                             </button>
                             <div className="m-auto text-sm font-medium text-slate-600">
                                 <h1>Back to <Link to="/login" className="text-blue-500 ">Login</Link></h1>
