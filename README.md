@@ -1,4 +1,4 @@
-![logo](https://user-images.githubusercontent.com/51261911/214019152-c2178165-9316-4bf3-8c5f-98123733b922.svg)
+![logo](https://user-images.githubusercontent.com/62412678/239474689-33dffcc8-ef88-4620-8e12-605e442b669c.PNG)
 
 # Evenmusic
 
