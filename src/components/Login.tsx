@@ -7,7 +7,6 @@ import Checkbox from "./Checkbox";
 import toast from 'react-hot-toast';
 import { useState } from "react";
 import { authService } from "../services/auth.service";
-import Loading from "./Loading";
 
 
 
@@ -59,7 +58,7 @@ export default function Login() {
     const handleSendLoginLink = () => {
         if (getValues().email) {
             setsendingLink(true)
-            return authService.sendLoginLink({ email: getValues().email }).then((e) => {
+            return authService.sendLoginLink({ email: getValues().email }).then(() => {
                 setsendingLink(false)
                 reset()
                 toast.success("login link sent. check your inbox")
