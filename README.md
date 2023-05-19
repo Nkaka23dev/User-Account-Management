@@ -34,7 +34,7 @@ Run the development server:
 1. Clone the project
 
 ```bash
-git clone https://github.com/apeunit/even-music.git
+https://github.com/Nkaka23dev/User-Account-Management.git
 ```
 
 2. Install packages
