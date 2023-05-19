@@ -20,6 +20,7 @@ The system will focuses on ease of use, scalability, data security, and user ver
 - React-Hook-Form
 - NodeJS
 - Express
+- Postgres
 
 ## Getting Started
 
