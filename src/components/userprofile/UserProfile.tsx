@@ -7,10 +7,10 @@ import ResetPassword from "./ResetPassword";
 export default function UserProfile() {
     const [openTab, setOpenTab] = useState(0);
     return (
-        <section>
-            <div className='py-32 w-full bg-blue-500 bg' >
+        <section className="">
+            <div className='lg:hidden py-32 w-full bg-blue-500 bg' >
             </div>
-            <div className='max-w-7xl mx-auto grid grid-cols-3 gap-10 -mt-24 '>
+            <div className='max-w-7xl px-4 mx-auto lg:grid-cols-1  grid grid-cols-3 lg:gap-0 gap-10 lg:-mt-0  -mt-24 '>
                 <div className='bg-white border border-gray-300 p-5 shadow-xl'>
                     <UserInfo />
                 </div>
@@ -18,14 +18,14 @@ export default function UserProfile() {
                     <div>
                         <div className="">
                             <div className="flex flex-col py-5 max-w-5xl ">
-                                <ul className="flex border-b border-slate-400 px-5 gap-5 cursor-pointer items-center ">
+                                <ul className="flex sm:flex-col border-b border-slate-400 px-5 gap-5 cursor-pointer items-center ">
                                     {
                                         ["Account information", "verify Account", "reset password"].map((e, i) => {
                                             return (
                                                 <li>
                                                     <a
                                                         onClick={() => setOpenTab(i)}
-                                                        className={`inline-block text-sm py-3 pt-2 text-gray-600 bg-white rounded- font-medium capitalize ${openTab === i ? 'border-b-[3px] border-blue-500 font-semibold ' : ''}`}
+                                                        className={`inline-block md:text-xs  text-sm py-3 pt-2 text-gray-600 bg-white rounded- font-medium capitalize ${openTab === i ? 'border-b-[3px] border-blue-500 font-semibold ' : ''}`}
                                                     >
                                                         <span>  {e}</span>
                                                     </a>

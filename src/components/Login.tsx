@@ -11,7 +11,7 @@ import { authService } from "../services/auth.service";
 
 
 export default function Login() {
-
+    const [usePassword, setusePassword] = useState(false)
     const [loading, setloading] = useState(false)
     const schema = yup.object({
         email: yup.string().email().required(),
@@ -37,17 +37,18 @@ export default function Login() {
 
     const onSubmit = (data: any) => {
         setloading(true)
-        return authService
-            .signIn({ email: data.email, password: data.password })
-            .then(() => {
-                toast("Please check your email for authorization code")
-                navigate("/2fa");
-            })
-            .catch((error) => {
-                setformError(error?.response?.data?.message)
-                setloading(false)
-                toast.error("Login failed")
-            });
+        if (usePassword)
+            return authService
+                .signIn({ email: data.email, password: data.password })
+                .then(() => {
+                    toast("Please check your email for authorization code")
+                    navigate("/2fa");
+                })
+                .catch((error) => {
+                    setformError(error?.response?.data?.message)
+                    setloading(false)
+                    toast.error("Login failed")
+                });
     };
 
 
@@ -68,28 +69,25 @@ export default function Login() {
             })
         }
     }
-
-
-    const [usePassword, setusePassword] = useState(false)
     return (
         <section>
             <div className='grid lg:grid-cols-1 grid-cols-5 h-screen'>
-                <div className='bg-blue-500 flex flex-col justify-center col-span-2'>
+                <div className='bg-blue-500 lg:order-2 flex flex-col justify-center col-span-2'>
                     <img className="max-w-xs mx-auto my-5" src="/vectors/login_vector.svg" alt="" />
                     <div className="flex flex-col my-5 max-w-md mx-auto gap-4 items-center justify-center ">
-                        <h4 className="text-center text-white font-medium">Lorem ipsum dolor sit, amet consectetur.</h4>
+                        <h4 className="text-center text-white font-medium">User account management system Sign In.</h4>
                         <p onClick={(() => {
                             toast("heloooooo")
-                        })} className="text-center font-medium text-[13px] leading-7 text-white/70"> adipisicing elit. Doloremque, autem exercitationem quis impedit, eum nulla quas eveniet similique id.</p>
+                        })} className="text-center font-medium text-[13px] leading-7 text-white/70"> You need email and password to sign in, if you sign up with email you will get a magic link on your email.</p>
                     </div>
                 </div>
-                <div className='col-span-3 max-w-md  w-full m-auto py-10 px-4'>
+                <div className='lg:order-1 col-span-3 max-w-md  w-full m-auto py-10 px-4'>
                     <div className=''>
 
                         <div>
                             <h1 className="text-[17px] mb-1 font-semibold text-gray-800 text-center">Sign In to continue</h1>
-                            <p className="pt-1 text-sm leading-7 font-medium text-gray-500 max-w-xl text-md">
-                                Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                            <p className="pt-1 text-center text-sm leading-7 font-medium text-gray-500 max-w-xl text-md">
+                                User account management system .
                             </p>
                         </div>
                     </div>
@@ -111,9 +109,9 @@ export default function Login() {
                             </div>
                         }
                         <div className="pr-0 mt-5 flex flex-col gap-3">
-                            <div className="flex items-center justify-between">
+                            <div className="flex md:flex-col items-center md:items-start md:gap-2 justify-between">
                                 <Checkbox label="I agree terms & conditions" />
-                                <Link to="/forgot-password" className="text-blue-500 font-medium text-sm mb-4 ">Forgot password?</Link>
+                                <Link to="/forgot-password" className="text-blue-500 font-medium text-sm ">Forgot password?</Link>
                             </div>
 
                             <button onClick={(e) => {

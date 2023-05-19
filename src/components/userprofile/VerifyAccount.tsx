@@ -64,7 +64,7 @@ export default function VerifyAccount() {
     return (
         <div>
             {user?.verification_status === 'unverified' ? <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-                <div className="grid grid-cols-2 gap-4 ">
+                <div className="grid md:grid-cols-1 grid-cols-2 gap-4 ">
                     <Input error={errors['national_id']}  {...register("national_id")} placeholder="Enter full Name.." label="National ID or passport numbers" />
                     <div className=" ">
                         <label className="text-sm mb-[6px] capitalize block text-gray-600 font-medium " htmlFor="photo">Upload your profile picture <span className='text-red-500'>*</span> </label>
@@ -76,7 +76,7 @@ export default function VerifyAccount() {
                     </div>
                 </div>
                 <div className="pr-4 mt-5 flex flex-col gap-3 ">
-                    <button type="submit" className={`bg-blue-500 pr-4 w-1/4 text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ${VerifyLoading ? 'pointer-events-none opacity-70' : ''} `}>{VerifyLoading ? <Loading /> : 'Verify Account'}</button>
+                    <button type="submit" className={`bg-blue-500 md:w-full pr-4 w-1/4 text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ${VerifyLoading ? 'pointer-events-none opacity-70' : ''} `}>{VerifyLoading ? <Loading /> : 'Verify Account'}</button>
                 </div>
             </form> : <div>
                 {user?.verification_status === 'pending' ? 'Verification is pending' : user?.verification_status === 'verified' ? <div className="flex items-center" >
