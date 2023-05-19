@@ -24,9 +24,9 @@ export default function UserInfo() {
         </div>
         <div className="mt-2 grid">
           <div className="flex flex-col gap-3 items-center mx-auto mt-4">
-            <p className="text-center text-md capitalize font-medium flex items-center">{user?.username}
+            <p className="text-center text-md capitalize font-medium flex md:flex-col items-center">{user?.username}
               <span>
-                {user?.verification_status === 'pending' ? 'Verification is pending' : user?.verification_status === 'verified' ? <img className="" src="/vectors/badge.svg" /> : ''}
+                {user?.verification_status === 'pending' ? <span className="text-blue-400 px-1 text-sm">Verification is pending</span> : user?.verification_status === 'verified' ? <img className="" src="/vectors/badge.svg" /> : ''}
               </span>
             </p>
             <span className="py-2 text-sm">

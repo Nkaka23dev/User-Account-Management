@@ -65,7 +65,7 @@ export default function VerifyAccount() {
         <div>
             {user?.verification_status === 'unverified' ? <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
                 <div className="grid grid-cols-2 gap-4 ">
-                    <Input error={errors['national_id']}  {...register("national_id")} placeholder="Enter full Name.." label="National ID or passport numbers" />
+                    <Input error={errors['national_id']}  {...register("national_id")} placeholder="Enter NID numbers or passport.." label="National ID or passport numbers" />
                     <div className=" ">
                         <label className="text-sm mb-[6px] capitalize block text-gray-600 font-medium " htmlFor="photo">Upload your profile picture <span className='text-red-500'>*</span> </label>
                         <div className={`border flex items-center justify-between rounded-[3px] px-3 py-3 ${errors['file']?.message ? 'border-red-400 ' : 'border-slate-200 '}`}>
