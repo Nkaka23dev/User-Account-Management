@@ -76,7 +76,7 @@ export default function VerifyAccount() {
                     </div>
                 </div>
                 <div className="pr-4 mt-5 flex flex-col gap-3 ">
-                    <button type="submit" className={`bg-blue-500 pr-4 w-1/4 text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ${VerifyLoading ? 'pointer-events-none opacity-70' : ''} `}>{VerifyLoading ? <Loading /> : 'Verify Account'}</button>
+                    <button type="submit" className={`bg-blue-500 md:w-full pr-4 w-1/4 text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ${VerifyLoading ? 'pointer-events-none opacity-70' : ''} `}>{VerifyLoading ? <Loading /> : 'Verify Account'}</button>
                 </div>
             </form> : <div>
                 {user?.verification_status === 'pending' ? 'Verification is pending' : user?.verification_status === 'verified' ? <div className="flex items-center" >

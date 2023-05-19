@@ -37,11 +37,11 @@ export default function TwoFactorAuth() {
         }
     };
     return (
-        <section>
-            <div className='grid grid-cols-5 h-screen'>
+        <section className='lg:px-2'>
+            <div className='grid lg:grid-cols-1 grid-cols-5 h-screen'>
                 <div className='bg-blue-500 flex flex-col justify-center col-span-2'>
                     <img className="max-w-xs mx-auto my-5" src="/vectors/password.svg" alt="" />
-                    <div className="flex flex-col my-5 max-w-md mx-auto gap-4 items-center justify-center ">
+                    <div className="flex lg:px-4  flex-col my-5 max-w-md mx-auto gap-4 items-center justify-center ">
                         <h4 className="text-center text-white font-medium">Lorem ipsum dolor sit, amet consectetur.</h4>
                         <p className="text-center font-medium text-[13px] leading-7 text-white/70"> adipisicing elit. Doloremque, autem exercitationem quis impedit, eum nulla quas eveniet similique id.</p>
                     </div>

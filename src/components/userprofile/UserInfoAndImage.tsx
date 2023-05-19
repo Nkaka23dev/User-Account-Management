@@ -14,7 +14,7 @@ export default function UserInfo() {
       setloading(false);
     })
   }
-
+console.log(user)
   return (
     <section>
       <div className="grid">
