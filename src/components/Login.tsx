@@ -33,8 +33,6 @@ export default function Login() {
 
     const navigate = useNavigate()
 
-
-
     const [formError, setformError] = useState('')
 
     const onSubmit = (data: any) => {
