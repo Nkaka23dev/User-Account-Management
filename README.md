@@ -2,10 +2,9 @@
 
 # User Management System description
 
-
-User account management system, aims to address the growing needs of ZPlatform, in terms of onboarding new users around(1000 users) and ensuring a highly secure and performant application.
-
+User account management system, aims to address the growing needs of ZPlatform, in terms of onboarding around 1000 new users  and ensuring a highly secure and performant application.
 The system will focuses on ease of use, scalability, data security, and user verification.
+
 
 ## Live Link
 
@@ -41,7 +40,13 @@ https://github.com/Nkaka23dev/User-Account-Management.git
 
 ```bash
 npm install
-```
+``` 
+
+2. Create  and configure your  ```.env``` file
+ globally and add ```api``` link
+```bash
+VITE_API_URL=https://user-management-api-production.up.railway.app
+``` 
 
 3. Run local server
 
