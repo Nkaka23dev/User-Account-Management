@@ -2,7 +2,7 @@
 
 # User Management System description
 
-User account management system, aims to address the growing needs of ZPlatform, in terms of onboarding around 1000 new users  and ensuring a highly secure and performant application.
+User account management system, aims to address the growing needs of a company Z, in terms of onboarding around 1000 new users  and ensuring a highly secure and performant application.
 The system will focuses on ease of use, scalability, data security, and user verification.
 
 
