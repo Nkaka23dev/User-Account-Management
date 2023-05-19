@@ -1,23 +1,25 @@
 ![logo](https://user-images.githubusercontent.com/62412678/239474689-33dffcc8-ef88-4620-8e12-605e442b669c.PNG)
 
-# Evenmusic
+# User Management System description
 
-A decentralised protocol for music artists, fans and collective forms of value exchange
+
+User account management system, aims to address the growing needs of ZPlatform, in terms of onboarding new users around(1000 users) and ensuring a highly secure and performant application.
+
+The system will focuses on ease of use, scalability, data security, and user verification.
 
 ## Live Link
 
-[link](https://evenmusic-apeunit.netlify.app/)
+[link](https://account-mgmt.netlify.app/)
 
-## 📄 Project description
-
-Even wants to fundamentally change the way artists and their communities interact. Even aims
-to reshape the future of music through deeper collaboration of
-all participants in the ecosystem.
 
 ## Technologies Used
 
-- Next js
-- Tailwind css
+- React
+- TailwindCSS
+- React-Router-DOM
+- React-Hook-Form
+- NodeJS
+- Express
 
 ## Getting Started
 
