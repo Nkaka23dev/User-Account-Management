@@ -15,11 +15,21 @@ export default function Login() {
 
     const [loading, setloading] = useState(false)
     const schema = yup.object({
-        email: yup.string().required(),
-        password: yup.string().required('Password is required').min(6),
+        email: yup.string().email().required(),
+        password: yup.string().required('Password is required').test(
+            "regex",
+            "Password must be min 8 characters, and have 1 Special Character, 1 Uppercase, 1 Number and 1 Lowercase",
+            val => {
+                const regExp = new RegExp(
+                    "^(?=.*\\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$"
+                );
+                console.log(regExp.test(val), regExp, val);
+                return regExp.test(val);
+            }
+        )
     });
 
-    const { register, handleSubmit, formState: { errors } } =
+    const { register, reset, handleSubmit, getValues, formState: { errors } } =
         useForm({ resolver: yupResolver(schema) });
 
     const navigate = useNavigate()
@@ -30,7 +40,7 @@ export default function Login() {
 
     const onSubmit = (data: any) => {
         setloading(true)
-        authService
+        return authService
             .signIn({ email: data.email, password: data.password })
             .then(() => {
                 toast("Please check your email for authorization code")
@@ -42,6 +52,28 @@ export default function Login() {
                 toast.error("Login failed")
             });
     };
+
+
+    const [sendingLink, setsendingLink] = useState(false)
+
+    const handleSendLoginLink = () => {
+        if (getValues().email) {
+            setsendingLink(true)
+            return authService.sendLoginLink({ email: getValues().email }).then((e) => {
+                setsendingLink(false)
+                reset()
+                toast.success("login link sent. check your inbox")
+            }).catch((e) => {
+                toast.error(e.response.data.message)
+                setsendingLink(false)
+                reset()
+                console.log(e)
+            })
+        }
+    }
+
+
+    const [usePassword, setusePassword] = useState(false)
     return (
         <section>
             <div className='grid lg:grid-cols-1 grid-cols-5 h-screen'>
@@ -76,16 +108,31 @@ export default function Login() {
                         <div className=" w-full ">
                             <Input error={errors['email']} {...register("email")} placeholder="Enter email." label="Email" />
                         </div>
-                        <div className="">
-                            <Input error={errors['password']} type="password" {...register("password")} placeholder="Enter password" label="password" />
-                        </div>
+                        {
+                            usePassword && <div className="">
+                                <Input error={errors['password']} type="password" {...register("password")} placeholder="Enter password" label="password" />
+                            </div>
+                        }
                         <div className="pr-0 mt-5 flex flex-col gap-3">
                             <div className="flex items-center justify-between">
                                 <Checkbox label="I agree terms & conditions" />
                                 <Link to="/forgot-password" className="text-blue-500 font-medium text-sm mb-4 ">Forgot password?</Link>
                             </div>
-                            <button id="login-btn" type="submit" className={`bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ${loading ? 'pointer-events-none opacity-70' : ''}`}>
-                                {loading ? <Loading /> : 'Sign In'}
+
+                            <button onClick={(e) => {
+                                if (!usePassword) {
+                                    e.preventDefault()
+                                    setusePassword(true)
+
+                                }
+                            }} id="login-btn" type={usePassword ? "submit" : "button"} className={`bg-blue-500  w-full text-white font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-600 ${loading ? 'pointer-events-none opacity-70' : ''}`}>
+                                Login with password
+                            </button>
+                            <button onClick={() => {
+                                setusePassword(false)
+                                handleSendLoginLink()
+                            }} id="login-btn" className={`bg-blue-100  w-full text-blue-500 font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-100 ${sendingLink ? 'pointer-events-none opacity-70' : ''}`}>
+                                Sigin in with email
                             </button>
 
 

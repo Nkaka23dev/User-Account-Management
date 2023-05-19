@@ -2,7 +2,7 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import Input from "../Input";
-import { useAuth } from "../../context/authContext" 
+import { useAuth } from "../../context/authContext"
 
 export default function UserProfileForm() {
     const { user }: any = useAuth();
@@ -17,6 +17,7 @@ export default function UserProfileForm() {
         martal_status: yup.string().required().label("martal status"),
     });
 
+
     const { register, handleSubmit, formState: { errors } } =
         useForm({
             resolver: yupResolver(schema), defaultValues: {
@@ -25,7 +26,8 @@ export default function UserProfileForm() {
                 birth: user.birth,
                 nationality: user.nationality,
                 gender: user.gender,
-                martal_status: user.martal_status
+                martal_status: user.martal_status,
+                age: new Date().getFullYear() - new Date(user.birth).getFullYear()
             }
         });
 
@@ -37,8 +39,9 @@ export default function UserProfileForm() {
                 <Input error={errors['names']}   {...register("names")} placeholder="Enter full Name.." label="Full name" />
                 <Input error={errors['email']} {...register("email")} placeholder="Enter email." label="Email" />
             </div>
-            <div className="grid grid-cols-2 gap-4  ">
+            <div className="grid grid-cols-3 gap-4  ">
                 <Input error={errors['birth']}  {...register("birth")} type="date" placeholder="Date of Birth" label="Date of Birth" />
+                <Input error={errors['age']}  {...register("age")} type="number" placeholder="Age" label="Age" />
                 <Input error={errors['martal_status']} {...register("martal_status")} placeholder="martal status" label="Martal status" />
             </div>
             <div className="grid grid-cols-2 gap-4 capitalize  ">

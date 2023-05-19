@@ -12,7 +12,17 @@ export default function ResetPassword() {
 
     const schema = yup.object({
         old_password: yup.string().required('Old password is required').min(6),
-        new_password: yup.string().required(' new password is required').min(6),
+        new_password: yup.string().required('Password is required').test(
+            "regex",
+            "Password must be min 8 characters, and have 1 Special Character, 1 Uppercase, 1 Number and 1 Lowercase",
+            val => {
+                const regExp = new RegExp(
+                    "^(?=.*\\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$"
+                );
+                console.log(regExp.test(val), regExp, val);
+                return regExp.test(val);
+            }
+        ),
         comfirm_password: yup.string()
             .oneOf([yup.ref('new_password')], 'Passwords must match')
     });

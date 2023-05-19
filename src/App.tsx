@@ -1,5 +1,5 @@
 import {
-  createHashRouter,
+  createBrowserRouter,
   createRoutesFromElements,
   Navigate,
   Route,
@@ -17,7 +17,7 @@ import { Toaster } from "react-hot-toast";
 import TwoFactorAuth from "./pages/2FA";
 import AuthLayout from "./pages/AuthLayout";
 
-const router = createHashRouter(
+const router = createBrowserRouter(
   createRoutesFromElements(
     <Route>
       <Route element={<AuthLayout />} path="/">

@@ -14,7 +14,7 @@ export default function ResetPassword() {
         email: yup.string().email().required('Email is required')
     });
 
-    const { register, handleSubmit, formState: { errors } } =
+    const { register, reset, handleSubmit, formState: { errors } } =
         useForm({ resolver: yupResolver(schema) });
 
     const onSubmit = (data: any) => {
@@ -22,6 +22,7 @@ export default function ResetPassword() {
         return authService.forgotPassword({ email: data.email }).then(({ data }) => {
             toast.success("Check your inbox")
             setloading(false)
+            reset()
             console.log(data)
         }).catch(err => {
             console.log(err)

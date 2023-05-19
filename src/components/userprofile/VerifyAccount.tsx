@@ -68,7 +68,7 @@ export default function VerifyAccount() {
                     <Input error={errors['national_id']}  {...register("national_id")} placeholder="Enter full Name.." label="National ID or passport numbers" />
                     <div className=" ">
                         <label className="text-sm mb-[6px] capitalize block text-gray-600 font-medium " htmlFor="photo">Upload your profile picture <span className='text-red-500'>*</span> </label>
-                        <div className={`border rounded-[3px] px-3 py-3 ${errors['file']?.message ? 'border-red-400 ' : 'border-slate-200 '}`}>
+                        <div className={`border flex items-center justify-between rounded-[3px] px-3 py-3 ${errors['file']?.message ? 'border-red-400 ' : 'border-slate-200 '}`}>
                             <input onChange={(e) => handleUpload(e.target.files[0])} type="file" className={`${loading && 'pointer-events-none opacity-50'} font-medium text-sm text-slate-600`} />
                             {loading && <Loading invert />}
                         </div>

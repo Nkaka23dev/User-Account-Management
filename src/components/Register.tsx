@@ -36,7 +36,17 @@ export default function Register() {
         photo: yup.string(),
         gender: yup.string().required(),
         martal_status: yup.string().required().label("martal status"),
-        password: yup.string().required('Password is required').min(6),
+        password: yup.string().required('Password is required').test(
+            "regex",
+            "Password must be min 8 characters, and have 1 Special Character, 1 Uppercase, 1 Number and 1 Lowercase",
+            val => {
+                const regExp = new RegExp(
+                    "^(?=.*\\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$"
+                );
+                console.log(regExp.test(val), regExp, val);
+                return regExp.test(val);
+            }
+        ),
         confirm_password: yup.string()
             .oneOf([yup.ref('password')], 'Passwords must match')
     });

@@ -80,5 +80,15 @@ export class AuthServices {
       national_id,
     });
   };
+  sendLoginLink = async ({ email }) => {
+    return api.post(`/users/send-login-link`, {
+      email,
+    });
+  };
+  verifyLoginLink = async ({ token }) => {
+    return api.post(`/users/verify-login-link`, {
+      token,
+    });
+  };
 }
 export const authService = new AuthServices();

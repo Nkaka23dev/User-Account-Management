@@ -96,9 +96,10 @@ function useProvideAuth() {
     const parsedUrl = qs.parse(window.location.search.replaceAll("?", ''))
 
     const handleToken = () => {
-        return authService.verify2faToken({ token: parsedUrl.token }).then(({ data }) => {
+        return authService.verifyLoginLink({ token: parsedUrl.token }).then(({ data }) => {
             setCurrentUser(data)
             localStorage.setItem('token', data.access_token)
+            localStorage.setItem('refresh_token', data.refresh_token)
             setLoading(false)
         }).catch((e) => {
             console.log(e.response.data.message)

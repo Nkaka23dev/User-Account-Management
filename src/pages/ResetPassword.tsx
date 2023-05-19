@@ -15,8 +15,19 @@ export default function ForgotPassword() {
     const navigate = useNavigate();
 
     const schema = yup.object({
-        password: yup.string().required('Password is required').min(6),
-        confirm_password: yup.string().required('Password is required').min(6),
+        password: yup.string().required('Password is required').test(
+            "regex",
+            "Password must be min 8 characters, and have 1 Special Character, 1 Uppercase, 1 Number and 1 Lowercase",
+            val => {
+                const regExp = new RegExp(
+                    "^(?=.*\\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$"
+                );
+                console.log(regExp.test(val), regExp, val);
+                return regExp.test(val);
+            }
+        ),
+        confirm_password: yup.string()
+            .oneOf([yup.ref('password')], 'Passwords must match')
     });
     const { register, handleSubmit, formState: { errors } } =
         useForm({ resolver: yupResolver(schema) });
@@ -58,10 +69,10 @@ export default function ForgotPassword() {
                     </div>
                     <form onSubmit={handleSubmit(onSubmit)} className="mt-5">
                         <div className=" w-full ">
-                            <Input error={errors['password']} {...register("password")} placeholder="Enter email." label="password" />
+                            <Input type="password" error={errors['password']} {...register("password")} placeholder="Enter password." label="password" />
                         </div>
                         <div className=" w-full ">
-                            <Input error={errors['confirm_password']} {...register("confirm_password")} placeholder="Confirm password." label="Confirm password" />
+                            <Input type="password" error={errors['confirm_password']} {...register("confirm_password")} placeholder="Confirm password." label="Confirm password" />
                         </div>
 
                         <div className="pr-0 mt-5 flex flex-col gap-3">
