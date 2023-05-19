@@ -70,7 +70,7 @@ export default function Login() {
         }
     }
     return (
-        <section>
+        <section className="lg:px-4">
             <div className='grid lg:grid-cols-1 grid-cols-5 h-screen'>
                 <div className='bg-blue-500 lg:order-2 flex flex-col justify-center col-span-2'>
                     <img className="max-w-xs mx-auto my-5" src="/vectors/login_vector.svg" alt="" />

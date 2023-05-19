@@ -92,9 +92,9 @@ export default function Register() {
             });
     }
     return (
-        <section>
+        <section className="lg:px-4">
             <div className='grid lg:grid-cols-1 grid-cols-5 h-screen'>
-                <div className='bg-blue-500 lg:order-2 flex flex-col justify-center col-span-2'>
+                <div className='bg-blue-500  lg:order-2 flex flex-col justify-center col-span-2'>
                     <img className="max-w-xs mx-auto my-5" src="/vectors/users_vector.svg" alt="" />
                     <div className="flex flex-col my-5 max-w-md mx-auto gap-4 items-center justify-center ">
                         <h4 className="text-center  text-white font-medium">User account management system Sign Up.</h4>
