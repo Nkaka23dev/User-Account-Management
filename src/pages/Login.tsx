@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import Input from "./Input";
+import Input from "../components/Input";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, useNavigate } from 'react-router-dom'
-import Checkbox from "./Checkbox";
+import Checkbox from "../components/Checkbox";
 import toast from 'react-hot-toast';
 import { useState } from "react";
 import { authService } from "../services/auth.service";

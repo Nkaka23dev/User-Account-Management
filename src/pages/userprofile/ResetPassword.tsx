@@ -1,11 +1,11 @@
 import { useForm } from "react-hook-form";
-import Input from "../Input";
+import Input from "../../components/Input";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { authService } from "../../services/auth.service";
 import { toast } from "react-hot-toast";
 import { useState } from "react";
-import Loading from "../Loading";
+import Loading from "../../components/Loading";
 
 export default function ResetPassword() {
     const [loading, setloading] = useState(false)

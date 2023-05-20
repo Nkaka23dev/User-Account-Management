@@ -16,5 +16,4 @@ function Select({ data, label, error, ...other }: any, ref: any) {
         </div>
     )
 }
-
 export default forwardRef(Select)

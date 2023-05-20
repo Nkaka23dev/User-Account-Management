@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import Input from "../Input";
+import Input from "../../components/Input";
 import { authService } from "../../services/auth.service";
 import { toast } from "react-hot-toast";
 import { useAuth } from "../../context/authContext";
 import { useState } from "react";
-import Loading from "../Loading";
+import Loading from "../../components/Loading";
 
 export default function VerifyAccount() {
     const [loading, setloading] = useState(false);

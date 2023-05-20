@@ -6,11 +6,11 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import Login from "./components/Login";
+import Login from "./pages/Login";
 import PageLayout from "./pages/PageLayout";
-import Register from "./components/Register";
+import Register from "./pages/Register";
 import ForgotPassword from "./pages/ForgotPassword";
-import UserProfile from "./components/userprofile/UserProfile";
+import UserProfile from "./pages/userprofile/UserProfile";
 import ResetPassword from "./pages/ResetPassword";
 import { AuthProvider } from "./context/authContext";
 import { Toaster } from "react-hot-toast";
