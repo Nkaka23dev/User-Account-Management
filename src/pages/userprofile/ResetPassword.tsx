@@ -34,7 +34,8 @@ export default function ResetPassword() {
     const onSubmit = (data: any) => {
         setloading(true)
         return authService.changePassword({ new_password: data.new_password, old_password: data.old_password }).then(() => {
-            toast.success("Password changed, login");
+            toast.success("Password has been changed.");
+            setloading(false)
             reset()
         })
             .catch(err => {

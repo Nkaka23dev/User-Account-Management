@@ -73,17 +73,17 @@ export default function Login() {
                 <div className='bg-blue-500 lg:order-2 flex flex-col justify-center col-span-2'>
                     <img className="max-w-xs mx-auto my-5" src="/vectors/login_vector.svg" alt="" />
                     <div className="flex flex-col my-5 max-w-md lg:px-4 mx-auto gap-4 items-center justify-center ">
-                        <h4 className="text-center text-white font-medium">User account management system Sign In.</h4>
+                        <h4 className="text-center text-white font-medium">User account management system Sign In Page.</h4>
                         <p onClick={(() => {
                             toast("heloooooo")
-                        })} className="text-center font-medium text-[13px] leading-7 text-white/70"> You need email and password to sign in, if you sign up with email you will get a magic link on your email.</p>
+                        })} className="text-center font-medium text-[13px] leading-7 text-white/70"> You need an email and password to sign in, if you sign in with only email you will get a magic link on your email.</p>
                     </div>
                 </div>
                 <div className='lg:order-1 col-span-3 max-w-md  w-full m-auto py-10 px-4'>
                     <div className=''>
 
                         <div>
-                            <h1 className="text-[17px] mb-1 font-semibold text-gray-800 text-center">Sign In to continue</h1>
+                            <h1 className="text-[17px] mb-1 font-semibold text-gray-800 text-center">Sign In to Continue</h1>
                             <p className="pt-1 text-center text-sm leading-7 font-medium text-gray-500 max-w-xl text-md">
                                 User account management system .
                             </p>
@@ -125,7 +125,7 @@ export default function Login() {
                                 setusePassword(false)
                                 handleSendLoginLink()
                             }} id="login-btn" className={`bg-blue-100  w-full text-blue-500 font-medium  py-3 rounded-[3px] text-sm hover:bg-blue-100 ${sendingLink ? 'pointer-events-none opacity-70' : ''}`}>
-                                Sigin in with email
+                                Sign In With Email
                             </button>
 
 
