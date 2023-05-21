@@ -6,15 +6,15 @@ import {
   RouterProvider,
 } from "react-router-dom";
 
-import Login from "./pages/Login";
+import Login from "./pages/login/Login";
 import PageLayout from "./pages/PageLayout";
-import Register from "./pages/Register";
-import ForgotPassword from "./pages/ForgotPassword";
+import Register from "./pages/register/Register";
+import ForgotPassword from "./pages/forgotPassword/ForgotPassword";
 import UserProfile from "./pages/userprofile/UserProfile";
-import ResetPassword from "./pages/ResetPassword";
+import ResetPassword from "./pages/resetPasswords/ResetPassword";
 import { AuthProvider } from "./context/authContext";
 import { Toaster } from "react-hot-toast";
-import TwoFactorAuth from "./pages/2FA";
+import TwoFactorAuth from "./pages/2fa/2FA";
 import AuthLayout from "./pages/AuthLayout";
 
 const router = createBrowserRouter(

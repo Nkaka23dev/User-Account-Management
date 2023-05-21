@@ -1,12 +1,12 @@
 import { useForm } from "react-hook-form";
-import Input from "../components/Input";
+import Input from "../../components/input/Input";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, useNavigate } from 'react-router-dom'
-import Checkbox from "../components/Checkbox";
+import Checkbox from "../../components/checkbox/Checkbox";
 import toast from 'react-hot-toast';
 import { useState } from "react";
-import { authService } from "../services/auth.service";
+import { authService } from "../../services/auth.service";
 
 
 
@@ -51,9 +51,7 @@ export default function Login() {
                 });
     };
 
-
     const [sendingLink, setsendingLink] = useState(false)
-
     const handleSendLoginLink = () => {
         if (getValues().email) {
             setsendingLink(true)
@@ -133,9 +131,7 @@ export default function Login() {
 
                             <div className="m-auto text-sm font-medium text-slate-600 lg:flex-col flex gap-10 py-5">
                                 <h1>Don't have account? <Link to="/register" className="text-blue-500 ">Register</Link></h1>
-
                             </div>
-
                         </div>
                     </form>
                 </div>

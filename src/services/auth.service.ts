@@ -40,7 +40,6 @@ export class AuthServices {
       }
     );
   };
-
   signInWithGoogle = async (token) => {
     return api.post("/api/auth", { token });
   };

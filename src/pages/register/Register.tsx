@@ -1,14 +1,14 @@
 import { useForm } from "react-hook-form";
-import Input from "../components/Input";
+import Input from "../../components/input/Input";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
-import Checkbox from "../components/Checkbox";
-import Select from "../components/Select";
+import Checkbox from "../../components/checkbox/Checkbox";
+import Select from "../../components/select/Select";
 import { Link, useNavigate } from 'react-router-dom'
-import { authService } from "../services/auth.service";
+import { authService } from "../../services/auth.service";
 import { useState } from "react";
 import { toast } from "react-hot-toast";
-import Loading from "../components/Loading";
+import Loading from "../../components/loading/Loading";
 
 export interface Userdata {
     names: string;

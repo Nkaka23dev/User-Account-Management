@@ -2,10 +2,10 @@
 import { Link, useNavigate } from 'react-router-dom'
 import ReactCodeInput from "react-verification-code-input";
 import { useState } from "react";
-import { authService } from '../services/auth.service';
-import { useAuth } from '../context/authContext';
+import { authService } from '../../services/auth.service';
+import { useAuth } from '../../context/authContext';
 import { toast } from 'react-hot-toast';
-import Loading from '../components/Loading';
+import Loading from '../../components/loading/Loading';
 
 export default function TwoFactorAuth() {
     const [code, setcode] = useState('')
