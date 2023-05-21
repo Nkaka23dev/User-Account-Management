@@ -2,11 +2,11 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Link, useNavigate } from 'react-router-dom'
-import Input from "../components/Input";
+import Input from "../../components/input/Input";
 import qs from 'qs'
-import { authService } from "../services/auth.service";
+import { authService } from "../../services/auth.service";
 import { toast } from "react-hot-toast";
-import Loading from "../components/Loading";
+import Loading from "../../components/loading/Loading";
 import { useState } from "react";
 
 export default function ForgotPassword() {

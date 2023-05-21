@@ -7,11 +7,16 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test": "vitest"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.1.0",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^14.0.0",
+    "@testing-library/user-event": "^14.4.3",
     "axios": "^1.4.0",
+    "jsdom": "^22.0.0",
     "prop-types": "^15.8.1",
     "qs": "^6.11.2",
     "react": "^18.2.0",
@@ -20,6 +25,7 @@
     "react-hot-toast": "^2.4.1",
     "react-router-dom": "^6.11.1",
     "react-verification-code-input": "^1.2.9",
+    "vitest": "^0.31.1",
     "yup": "^1.1.1"
   },
   "devDependencies": {
