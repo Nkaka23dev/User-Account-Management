@@ -57,4 +57,9 @@ VITE_API_URL=https://user-management-api-production.up.railway.app
 ```bash
 npm run dev
 ```
+3. Run tests
+
+```bash
+npm run test
+```
 
