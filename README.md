@@ -1,4 +1,4 @@
-![logo](https://user-images.githubusercontent.com/62412678/239474689-33dffcc8-ef88-4620-8e12-605e442b669c.PNG)
+![logo](https://user-images.githubusercontent.com/62412678/239736662-feb76ead-a7d3-4695-91ac-6faa2a5283af.PNG)
 
 # User Management System description
 
